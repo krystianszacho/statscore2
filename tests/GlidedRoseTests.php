@@ -2,8 +2,8 @@
 
 namespace Tests;
 
-use App\GildedRose;
-use App\Item;
+use App\Services\GildedRose;
+use App\Models\Item;
 use Faker\Factory as Faker;
 use PHPUnit\Framework\TestCase;
 
