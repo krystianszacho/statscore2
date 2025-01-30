@@ -18,11 +18,12 @@ class GildedRoseTest extends TestCase
 
     public function testNormalItemDegradesInQuality(): void
     {
+        $word = $this->faker->word;
         $sellIn = $this->faker->numberBetween(1, 10);
         $quality = $this->faker->numberBetween(1, 50);
 
         $item = new Item(
-            $this->faker->word,
+            $word,
             $sellIn,
             $quality
         );
