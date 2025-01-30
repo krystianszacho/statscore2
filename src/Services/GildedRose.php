@@ -26,7 +26,7 @@ final class GildedRose
             'Aged Brie' => new AgedBrie($item),
             'Backstage passes to a TAFKAL80ETC concert' => new BackstagePass($item),
             'Sulfuras, Hand of Ragnaros' => new Sulfuras($item),
-            default => new NormalItem($item),
+            default => new StandardItem($item),
         };
     }
 }

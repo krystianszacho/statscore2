@@ -18,18 +18,24 @@ class GildedRoseTest extends TestCase
 
     public function testNormalItemDegradesInQuality(): void
     {
+        $sellIn = $this->faker->numberBetween(1, 10);
+        $quality = $this->faker->numberBetween(1, 50);
+
         $item = new Item(
             $this->faker->word,
-            $this->faker->numberBetween(1, 10),
-            $this->faker->numberBetween(1, 50)
+            $sellIn,
+            $quality
         );
 
         $gildedRose = new GildedRose([$item]);
         $gildedRose->updateQuality();
 
-        $this->assertEquals($item->sell_in + 1, $item->sell_in);
-        $this->assertLessThanOrEqual(50, $item->quality);
+        $this->assertEquals($sellIn - 1, $item->sell_in);
+
+        $expectedQuality = max(0, $quality - (($sellIn - 1 < 0) ? 2 : 1));
+        $this->assertEquals($expectedQuality, $item->quality);
     }
+
 
     public function testAgedBrieIncreasesInQuality(): void
     {
