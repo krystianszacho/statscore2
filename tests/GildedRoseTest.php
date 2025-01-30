@@ -82,22 +82,18 @@ class GildedRoseTest extends TestCase
 
     public function testRandomItems(): void
     {
-        $items = [];
-
-        for ($i = 0; $i < 10; $i++) {
-            $items[] = new Item(
-                $this->faker->word,
-                $this->faker->numberBetween(-5, 15),
-                $this->faker->numberBetween(0, 50)
-            );
-        }
+        $items = array_map(fn() => new Item(
+            $this->faker->word,
+            $this->faker->numberBetween(-5, 15),
+            $this->faker->numberBetween(0, 50)
+        ), range(1, 10));
 
         $gildedRose = new GildedRose($items);
         $gildedRose->updateQuality();
 
-        foreach ($items as $item) {
+        array_walk($items, function ($item) {
             $this->assertLessThanOrEqual(50, $item->quality);
             $this->assertGreaterThanOrEqual(0, $item->quality);
-        }
+        });
     }
 }
