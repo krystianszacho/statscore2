@@ -13,9 +13,13 @@ class BackstagePass extends ItemBase
             return;
         }
 
-        $this->item->quality++;
-        if ($this->item->sell_in < 10) $this->item->quality++;
-        if ($this->item->sell_in < 5) $this->item->quality++;
+        $qualityIncreaseRules = [
+            $this->item->sell_in < 5 => 3,
+            $this->item->sell_in < 10 => 2,
+            $this->item->sell_in >= 10 => 1
+        ];
+
+        $this->item->quality += max(array_filter($qualityIncreaseRules));
 
         $this->item->quality = min(50, $this->item->quality);
     }
